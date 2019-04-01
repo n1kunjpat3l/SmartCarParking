@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>CSE5ITP Car Park</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+			integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+			crossorigin="anonymous"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Montserrat"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Lato"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<!--		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcZ4ob4fh8eFhrP_UrHksHuIT2PYGCg4E&callback=myMap"></script>-->
+		<script src="app.js"></script>
+		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		<!--		<link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css" type="text/css">-->
+	</head>
+	<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button
+						type="button"
+						class="navbar-toggle"
+						data-toggle="collapse"
+						data-target="#myNavbar"
+					>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand logo" href="http://www.latrobe.edu.au/"
+						><img class="img" src="images/logo.svg" alt="La Trobe University"
+					/></a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#data">VIEW DATA</a></li>
+						<!--						<li><a href="#contact">CONTACT US</a></li>-->
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div id="mycarousel" class="carousel" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="item active">
+					<img
+						src="images/latrobe.jpeg"
+						alt="La Trobe University"
+						class="img-responsive"
+					/>
+					<div class="carousel-caption"></div>
+				</div>
+			</div>
+		</div>
+		<!-- Container (Data) -->
+		<div class="container-fluid">
+			<div id="data" class="text-center slide">
+				<h1 style="color:black;font-size:30px">
+					La Trobe University Car Park Data
+				</h1>
+				<br />
+				<h4>**Realtime data refreshed every 10 seconds</h4>
+			</div>
+
+			<div class="row slide" ng-app="myApp" ng-controller="carparkData">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-8 col-xs-12" ng-repeat="x in data">
+					<div class="panel panel-default text-center">
+						<div class="panel-heading">
+							<h1>{{ x.carparkName }}</h1>
+						</div>
+						<div class="panel-body">
+							<p><strong>Total Capacity :</strong> {{ x.totalCapacity }}</p>
+						</div>
+						<div class="panel-footer">
+							<h3>{{ x.slotsAvailable }}</h3>
+							<h4>spaces free</h4>
+							<!--							<button class="btn btn-lg" ng-click="showMap()">View on map</button>-->
+						</div>
+						<div class="panel-body">
+							<p>
+								<strong>Last Classification Result :</strong>
+								{{ x.lastClassification }}
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+			<!--			<div class="col-sm-12 col-xs-12" ng-show="map" id="googleMap" style="height:300px;width:100%;"></div>-->
+		</div>
+		<footer class="container-fluid text-center">
+			<a href="#myPage" title="To Top">
+				<span class="glyphicon glyphicon-chevron-up"></span>
+			</a>
+			<p>&copy; ITP Champs - 2017</p>
+		</footer>
+
+		<script>
+			$(document).ready(function() {
+				// Add smooth scrolling to all links in navbar + footer link
+				$(".navbar a, footer a[href='#myPage']").on('click', function(event) {
+					// Make sure this.hash has a value before overriding default behavior
+					if (this.hash !== '') {
+						// Prevent default anchor click behavior
+						event.preventDefault();
+
+						// Store hash
+						var hash = this.hash;
+
+						// Using jQuery's animate() method to add smooth page scroll
+						// The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+						$('html, body').animate(
+							{
+								scrollTop: $(hash).offset().top
+							},
+							900,
+							function() {
+								// Add hash (#) to URL when done scrolling (default click behavior)
+								window.location.hash = hash;
+							}
+						);
+					} // End if
+				});
+
+				$(window).scroll(function() {
+					$('.slideanim').each(function() {
+						var pos = $(this).offset().top;
+
+						var winTop = $(window).scrollTop();
+						if (pos < winTop + 600) {
+							$(this).addClass('slide');
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+</html>
